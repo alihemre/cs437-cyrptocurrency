@@ -1,33 +1,22 @@
 <?php
-$articles = [
-    1 => ["title" => "İlk Haber", "content" => "Bu, sitemizin ilk haberidir."],
-    2 => ["title" => "İkinci Haber", "content" => "Bu, ikinci haberin detaylarıdır."]
+$title = "Article Details";
+include '../includes/header.php';
+
+$article_id = $_GET['id'] ?? null;
+
+// Placeholder article details
+$article = [
+    "id" => $article_id,
+    "title" => "Bitcoin Hits $50K!",
+    "content" => "Bitcoin has reached a new milestone, hitting $50,000 for the first time.",
 ];
 
-$id = $_GET['id'] ?? null;
-
-if (!isset($articles[$id])) {
-    die("Haber bulunamadı.");
+if (!$article_id || $article_id != $article['id']) {
+    die("Article not found.");
 }
-
-$article = $articles[$id];
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $article['title']; ?></title>
-    <link rel="stylesheet" href="assets/styles.css">
-</head>
-<body>
-    <?php include '../includes/header.php'; ?>
-
-    <h1><?php echo $article['title']; ?></h1>
+<main>
+    <h2><?php echo $article['title']; ?></h2>
     <p><?php echo $article['content']; ?></p>
-    <a href="index.php">Geri Dön</a>
-
-    <?php include '../includes/footer.php'; ?>
-</body>
-</html>
+</main>
+<?php include '../includes/footer.php'; ?>
