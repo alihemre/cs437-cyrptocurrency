@@ -1,22 +1,30 @@
+<!-- public/article.php -->
 <?php
-$title = "Article Details";
-include '../includes/header.php';
+$title = "Article";
+include './includes/header.php'; 
 
-$article_id = $_GET['id'] ?? null;
-
-// Placeholder article details
-$article = [
-    "id" => $article_id,
-    "title" => "Bitcoin Hits $50K!",
-    "content" => "Bitcoin has reached a new milestone, hitting $50,000 for the first time.",
+// In reality, you'd fetch article data from a database using $_GET['id']
+// For demonstration, let's just mock something
+$articleId = isset($_GET['id']) ? $_GET['id'] : 0;
+$mockArticles = [
+    1 => ["title" => "Bitcoin Hits $50K", "content" => "Full article text about BTC..."],
+    2 => ["title" => "Ethereum Merge Update", "content" => "Full article text about ETH Merge..."],
+    3 => ["title" => "Altcoin Rally", "content" => "Full article text about altcoin rally..."]
 ];
 
-if (!$article_id || $article_id != $article['id']) {
-    die("Article not found.");
+if (array_key_exists($articleId, $mockArticles)) {
+    $articleTitle = $mockArticles[$articleId]["title"];
+    $articleContent = $mockArticles[$articleId]["content"];
+} else {
+    $articleTitle = "Article Not Found";
+    $articleContent = "Sorry, we couldn't find this article.";
 }
 ?>
+
 <main>
-    <h2><?php echo $article['title']; ?></h2>
-    <p><?php echo $article['content']; ?></p>
+  <h2><?php echo $articleTitle; ?></h2>
+  <p><?php echo $articleContent; ?></p>
+  <a href="news.php">&larr; Back to News</a>
 </main>
-<?php include '../includes/footer.php'; ?>
+
+<?php include './includes/footer.php'; ?>

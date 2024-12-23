@@ -1,5 +1,6 @@
+</div> <!-- .content -->
 <footer>
-        <p>&copy; 2024 Crypto Website. All rights reserved.</p>
-    </footer>
+  <p>&copy; <?php echo date("Y"); ?> Crypto News. All rights reserved.</p>
+</footer>
 </body>
 </html>
