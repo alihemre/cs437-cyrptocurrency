@@ -4,19 +4,25 @@ $title = "Contact";
 include '../includes/header.php'; 
 ?>
 
-<main>
+<main class="contact-main">
   <h2>Contact Us</h2>
-  <form action="#" method="post">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
+  <form action="#" method="post" class="contact-form">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
   
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
   
-    <label for="message">Message:</label><br>
-    <textarea id="message" name="message" rows="5" cols="40" required></textarea><br><br>
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" required></textarea>
+    </div>
   
-    <button type="submit">Send</button>
+    <button type="submit" class="submit-button">Send</button>
   </form>
 </main>
 
