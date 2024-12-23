@@ -19,9 +19,6 @@ if ($rss && isset($rss->channel->item)) {
         $link     = (string) $item->link;
         $pubDate  = (string) $item->pubDate;      // e.g. "Mon, 09 Oct 2023 08:00:00 +0000"
 
-        // If you want to format the date: 
-        // $formattedDate = date("d M Y, H:i", strtotime($pubDate));
-
         // Push into $articles array
         $articles[] = [
             'id'      => $i++,
@@ -37,34 +34,94 @@ if ($rss && isset($rss->channel->item)) {
     echo "<p style='color:red;'>CoinTelegraph RSS feed alınamadı. Lütfen bağlantıyı kontrol edin.</p>";
     // $articles stays empty
 }
-
-/* ===============================
-   DEFINE YOUR COINS ARRAY (RIGHT SIDEBAR)
-================================= */
-$coins = [
-  [
-    'name' => 'Bitcoin',
-    'symbol' => 'BTC',
-    'price_usd' => 50000,
-    'price_try' => 1350000,
-    // Make sure to use forward slashes in paths, especially on Windows:
-    'image' => 'assets/coins/Bitcoin.svg.png'
-  ],
-  [
-    'name' => 'Ethereum',
-    'symbol' => 'ETH',
-    'price_usd' => 2000,
-    'price_try' => 54000,
-    'image' => 'assets/coins/Ethereum-icon-purple.svg.png'
-  ],
-  // ... up to 40 coins ...
-];
 ?>
+
+<!-- CSS Eklemeleri -->
+<style>
+  /* Genel Düzenlemeler */
+  .news-wrapper {
+    display: flex;
+    flex-direction: column; /* Flex yönü tek sütun */
+    gap: 20px;
+  }
+
+  /* Haber Kartlarının Stili */
+  .news-content {
+    width: 100%; /* Genişlik ayarlandı */
+  }
+
+  .news-list {
+    display: flex;
+    flex-wrap: wrap; /* Kartların satırları sarmasını sağlar */
+    gap: 20px;
+  }
+
+  .news-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: calc(50% - 10px); /* İki sütun için genişlik ayarı */
+    box-sizing: border-box; /* Padding ve border'ın toplam genişliğe dahil edilmesi */
+  }
+
+  .news-card h3 {
+    margin-top: 0;
+    font-size: 1.2em; /* Başlık boyutunu biraz küçülttük */
+    margin-bottom: 10px;
+  }
+
+  .news-card .summary {
+    flex: 1;
+    margin-bottom: 10px;
+    font-size: 0.95em; /* Özet metin boyutunu biraz küçülttük */
+    line-height: 1.4;
+  }
+
+  .news-card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+
+  .read-more {
+    align-self: flex-start;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em; /* Buton metin boyutunu biraz küçülttük */
+  }
+
+  .read-more:hover {
+    background-color: #0056b3;
+  }
+
+  /* Responsive Düzenlemeler */
+  @media (max-width: 1200px) {
+    .news-card {
+      width: calc(50% - 10px); /* Geniş ekranlarda iki sütun */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .news-card {
+      width: 100%; /* Tablet ve mobilde tek sütun */
+    }
+  }
+</style>
 
 <div class="content">
   <main class="news-wrapper">
     
-    <!-- LEFT: Main News Content -->
+    <!-- Main News Content -->
     <div class="news-content">
       <h2>Cryptocurrency News (CoinTelegraph)</h2>
 
@@ -72,23 +129,35 @@ $coins = [
         <?php if (!empty($articles)): ?>
           <?php foreach ($articles as $article): ?>
             <div class="news-card">
+              <!-- Görsel -->
+              <?php
+                // RSS summary'sinden görsel URL'sini çekmek için basit bir regex kullanıyoruz
+                preg_match('/<img[^>]+src="([^">]+)"/i', $article['summary'], $image_matches);
+                $image_url = isset($image_matches[1]) ? $image_matches[1] : '';
+              ?>
+              <?php if ($image_url): ?>
+                <img src="<?php echo htmlspecialchars($image_url); ?>" alt="<?php echo htmlspecialchars($article['title']); ?>">
+              <?php endif; ?>
+
               <!-- Title -->
               <h3>
                 <!-- Link to CoinTelegraph article in new tab -->
-                <a href="<?php echo $article['link']; ?>" target="_blank" rel="noopener noreferrer">
-                  <?php echo $article['title']; ?>
+                <a href="<?php echo htmlspecialchars($article['link']); ?>" target="_blank" rel="noopener noreferrer">
+                  <?php echo htmlspecialchars($article['title']); ?>
                 </a>
               </h3>
 
-              <!-- Optional: If you wanted to show date:
-              <p><strong>Date:</strong> <?php // echo $article['date']; ?></p>
-              -->
-
               <!-- Summary from RSS -->
-              <p><?php echo $article['summary']; ?></p>
+              <div class="summary">
+                <?php 
+                  // Özet içerisindeki img etiketlerini kaldır
+                  $clean_summary = preg_replace('/<img[^>]+>/i', '', $article['summary']);
+                  echo $clean_summary; 
+                ?>
+              </div>
 
               <!-- "Read More" link to direct user to the original article -->
-              <a href="<?php echo $article['link']; ?>" target="_blank" rel="noopener noreferrer" class="read-more">
+              <a href="<?php echo htmlspecialchars($article['link']); ?>" target="_blank" rel="noopener noreferrer" class="read-more">
                 Read More &rarr;
               </a>
             </div>
@@ -99,106 +168,7 @@ $coins = [
       </div>
     </div>
 
-    <!-- RIGHT: Coins Sidebar -->
-    <aside class="coins-sidebar">
-      <h3>Coins</h3>
-      <!-- Search box to filter coins -->
-      <input
-        type="text"
-        id="coinSearch"
-        placeholder="Search a coin..."
-        class="coins-searchbox"
-      />
-
-      <!-- List of coins -->
-      <ul id="coinsList" class="coins-list">
-        <?php foreach ($coins as $index => $coin): ?>
-          <li class="coin-row">
-            <!-- Image on left -->
-            <img
-              src="<?php echo $coin['image']; ?>"
-              alt="<?php echo $coin['symbol']; ?>"
-              class="coin-icon"
-            >
-            
-            <!-- Coin name/symbol in middle -->
-            <span class="coin-name">
-              <?php echo $coin['name']; ?> (<?php echo $coin['symbol']; ?>)
-            </span>
-            
-            <!-- Prices on the right -->
-            <span class="coin-price">
-              $<?php echo number_format($coin['price_usd'], 2); ?>
-              /
-              <?php echo number_format($coin['price_try'], 2); ?> TRY
-            </span>
-          </li>
-        <?php endforeach; ?>
-      </ul>
-
-      <!-- Show More button -->
-      <button id="showMoreCoins" class="show-more-btn">
-        Show More
-      </button>
-    </aside>
-
   </main>
 </div>
 
 <?php include '../includes/footer.php'; ?>
-
-<!-- JavaScript for searching & "Show More" logic -->
-<script>
-  // DOM elements
-  const coinRows = document.querySelectorAll('.coin-row');
-  const showMoreBtn = document.getElementById('showMoreCoins');
-  const coinSearch = document.getElementById('coinSearch');
-
-  // How many rows to show initially
-  const initialLimit = 10;
-
-  // Hide beyond the first 10 by default
-  function applyInitialLimit() {
-    coinRows.forEach((row, index) => {
-      if (index < initialLimit) {
-        row.style.display = 'flex';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-    // Only show the button if more than 10 coins
-    showMoreBtn.style.display =
-      (coinRows.length > initialLimit) ? 'block' : 'none';
-  }
-
-  // "Show More" reveals all
-  showMoreBtn.addEventListener('click', () => {
-    coinRows.forEach(row => {
-      row.style.display = 'flex';
-    });
-    showMoreBtn.style.display = 'none';
-  });
-
-  // Filter coins by search query
-  coinSearch.addEventListener('input', () => {
-    const query = coinSearch.value.toLowerCase().trim();
-    coinRows.forEach((row) => {
-      const text = row.innerText.toLowerCase();
-      if (text.includes(query)) {
-        row.style.display = 'flex';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-    // If searching, hide the "Show More" button because
-    // we don't want to limit results. If query is empty, revert.
-    if (query.length > 0) {
-      showMoreBtn.style.display = 'none';
-    } else {
-      applyInitialLimit();
-    }
-  });
-
-  // On page load, set initial limit
-  applyInitialLimit();
-</script>
