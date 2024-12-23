@@ -1,6 +1,6 @@
 <?php
 $title = "Prices";
-include './includes/header.php';
+include '../includes/header.php';
 
 // Placeholder price data
 $prices = [
@@ -35,4 +35,4 @@ $prices = [
   </main>
 </div>
 
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
 $title = "Login";
-include './includes/header.php';
+include '../includes/header.php';
 ?>
 <main>
     <h2>Login</h2>
@@ -14,4 +14,4 @@ include './includes/header.php';
         <button type="submit">Login</button>
     </form>
 </main>
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

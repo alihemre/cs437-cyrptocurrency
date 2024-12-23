@@ -1,7 +1,7 @@
 <!-- public/contact.php -->
 <?php
 $title = "Contact";
-include './includes/header.php'; 
+include '../includes/header.php'; 
 ?>
 
 <main>
@@ -20,4 +20,4 @@ include './includes/header.php';
   </form>
 </main>
 
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

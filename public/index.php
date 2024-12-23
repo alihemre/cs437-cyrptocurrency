@@ -1,6 +1,6 @@
 <?php
 $title = "Home";
-include './includes/header.php';
+include '../includes/header.php';
 ?>
 
 <!-- Hero Section -->
@@ -19,4 +19,4 @@ include './includes/header.php';
   </main>
 </div>
 
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

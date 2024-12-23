@@ -1,7 +1,7 @@
 <!-- public/article.php -->
 <?php
 $title = "Article";
-include './includes/header.php'; 
+include '../includes/header.php'; 
 
 // In reality, you'd fetch article data from a database using $_GET['id']
 // For demonstration, let's just mock something
@@ -27,4 +27,4 @@ if (array_key_exists($articleId, $mockArticles)) {
   <a href="news.php">&larr; Back to News</a>
 </main>
 
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

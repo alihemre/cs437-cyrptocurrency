@@ -1,7 +1,7 @@
 <!-- public/about.php -->
 <?php
 $title = "About";
-include './includes/header.php'; 
+include '../includes/header.php'; 
 ?>
 
 <main>
@@ -10,4 +10,4 @@ include './includes/header.php';
   <p>Our mission is to simplify the complex world of digital assets for the everyday user.</p>
 </main>
 
-<?php include './includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
