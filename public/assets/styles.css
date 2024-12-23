@@ -392,3 +392,10 @@
 .show-more-btn:hover {
   background: #394e6b;
 }
+
+.contact-main {
+  margin-left: 20px; /* İhtiyacınıza göre değeri ayarlayın */
+  margin-top: 20px;
+}
+
+
