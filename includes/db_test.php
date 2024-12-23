@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root"; // MySQL kullanıcı adı
-$password = "your_password"; // MySQL root şifresi
+$password = "aliemre3169"; // MySQL root şifresi
 $dbname = "news_site"; // Daha önce oluşturduğunuz veritabanı
 
 // Bağlantıyı oluştur
