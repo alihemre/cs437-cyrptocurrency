@@ -59,7 +59,7 @@
      HERO SECTION (Home page)
   ========================= */
   .hero {
-    background: url('assets/hero.jpg') center/cover no-repeat;
+    background: url('crypto-background.jpg'); /* Replace with your image path */
     height: 400px;
     display: flex;
     align-items: center;
@@ -68,8 +68,15 @@
     color: #fff;
     text-align: center;
     padding: 0 1rem;
+}
+  .no-underline {
+    text-decoration: none; /* Removes underline */
+    color: inherit;        /* Ensures the text color matches parent */
   }
   
+  .no-underline:hover {
+    text-decoration: none; /* Keeps underline removed on hover */
+  }
   .hero h2 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -402,5 +409,6 @@
   margin-left: 20px;
   margin-top: 20px;
 }
+
 
 

@@ -10,8 +10,8 @@
 <body>
 <header>
   <div class="header-inner">
-    <h1>Crypto News</h1>
-    <nav>
+  <h1><a href="index.php" class="no-underline">Crypto News</a></h1>
+  <nav>
       <ul>
         <li><a href="index.php">Home</a></li>
         <li><a href="news.php">News</a></li>
