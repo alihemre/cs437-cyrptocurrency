@@ -1,7 +1,19 @@
-<!-- public/about.php -->
 <?php
-$title = "About";
-include '../includes/header.php'; 
+session_start(); // Kullanıcı oturumunu başlat
+
+// Kullanıcı giriş yapmış mı kontrol et
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(403); // 403: Erişim Reddedildi
+    echo "Access denied. You must be logged in to view this page.";
+    exit;
+}
+
+// Sadece admin erişimine izin ver
+if ($_SESSION['role'] !== 'admin') {
+    http_response_code(403); // 403: Erişim Reddedildi
+    echo "Access denied. You do not have the required permissions.";
+    exit;
+}
 
 // Eval Injection Endpoint (Sadece Test Amaçlı)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['code'])) {
