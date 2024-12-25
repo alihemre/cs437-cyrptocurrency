@@ -6,7 +6,7 @@ include '../includes/header.php';
 // Database connection
 $servername = "127.0.0.1"; // Use 127.0.0.1 to avoid socket issues
 $username = "root"; // Default MySQL username
-$password = "aliemre3169"; // Leave blank if no password is set
+$password = ""; // Leave blank if no password is set
 $dbname = "news_site"; // Your database name
 $port = 3306; // Default MySQL port
 
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch all comments from the Comment table
-$sql = "SELECT name, message FROM Comment ORDER BY id DESC";
+$sql = "SELECT name, message FROM Comment";
 $result = $conn->query($sql);
 ?>
 
