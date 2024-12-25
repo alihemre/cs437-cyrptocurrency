@@ -2,7 +2,7 @@
 $title = "Home";
 $servername = "127.0.0.1"; // Use 127.0.0.1 to avoid socket issues
 $username = "root"; // Default MySQL username
-$password = ""; // Leave blank if no password is set
+$password = "aliemre3169"; // Leave blank if no password is set
 $dbname = "news_site"; // Your database name
 $port = 3306; // Default MySQL port
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vulnerable SQL query: Directly storing sensitive information in plaintext
     $sql = "INSERT INTO users (email, phone, password) VALUES ('$email', '$phone', '$password')";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql) === true) {
         echo "Kayıt başarılı! ";
     } else {
         echo "Hata: " . $sql . "<br>" . $conn->error;
