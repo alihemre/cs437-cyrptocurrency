@@ -2,10 +2,23 @@
 <?php
 $title = "Contact";
 include '../includes/header.php'; 
+
+// Insecurely handling form input
+$name = isset($_POST['name']) ? $_POST['name'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$message = isset($_POST['message']) ? $_POST['message'] : '';
 ?>
 
 <main class="contact-main">
   <h2>Contact Us</h2>
+
+  <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
+    <div class="user-input">
+      <p>Thank you, <strong><?php echo $name; ?></strong>!</p>
+      <p>We have received your message: <em><?php echo $message; ?></em></p>
+    </div>
+  <?php endif; ?>
+
   <form action="#" method="post" class="contact-form">
     <div class="form-group">
       <label for="name">Name:</label>
@@ -26,4 +39,4 @@ include '../includes/header.php';
   </form>
 </main>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>  
