@@ -20,7 +20,6 @@ $user_ip = getUserIP();
 // Kara listeye alınacak IP adresleri
 $blacklist = ['192.168.1.109', '192.168.56.1', '88.230.79.90']; // Arkadaşınızın IP'sini buraya ekleyin
 
-// ip=1 ile kontrolü atlatabilmek için özel bir kontrol ekleyelim
 if (!$user_ip === "127.0.0.1" || in_array($user_ip, $blacklist)) {
   die("Erişim yasaklandı: $user_ip adresi kara listededir.");
 }
