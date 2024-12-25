@@ -1,5 +1,36 @@
 <?php
 $title = "Home";
+$servername = "127.0.0.1"; // Use 127.0.0.1 to avoid socket issues
+$username = "root"; // Default MySQL username
+$password = ""; // Leave blank if no password is set
+$dbname = "news_site"; // Your database name
+$port = 3306; // Default MySQL port
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Bağlantı hatası: " . $conn->connect_error);
+}
+
+// Process form data when the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $password = $_POST['password']; // Store this password in plaintext
+
+    // Vulnerable SQL query: Directly storing sensitive information in plaintext
+    $sql = "INSERT INTO users (email, phone, password) VALUES ('$email', '$phone', '$password')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Kayıt başarılı! ";
+    } else {
+        echo "Hata: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
 ?>
 <style>
   /* Specific styles for login and signup pages */
@@ -80,12 +111,12 @@ $title = "Home";
     <h1>Signup</h1>
     <form id="signup-form" action="#" method="POST">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+        <input type="text" id="email" name="email" ><br>
         <label for="phone">Phone:</label>
-        <input type="phone" id="phone" name="phone" required><br>
+        <input type="phone" id="phone" name="phone" ><br>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+        <input type="password" id="password" name="password" ><br>
 
         <button type="submit">Signup</button>
         <a href="login.php">Already have an account? Login</a>
