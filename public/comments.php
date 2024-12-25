@@ -15,12 +15,13 @@ $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Bağlantı hatası: " . $conn->connect_error);
+    die("Connection error: " . $conn->connect_error);
 }
 
 // Initialize variables
-$name = isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '';
-$comment = isset($_POST['comment']) ? htmlspecialchars($_POST['comment']) : '';
+$name = isset($_POST['name']) ? $_POST['name'] : '';
+$comment = isset($_POST['comment']) ? $_POST['comment'] : '';
+$message = "";
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($name) && !empty($comment)) {
@@ -40,6 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($name) && !empty($comment)) 
         $message = "Error: Could not prepare the statement.";
     }
 }
+
+// Fetch comments to display
+$comments = [];
+$sql = "SELECT name, message FROM Comment ORDER BY Name DESC";
+if ($result = $conn->query($sql)) {
+    while ($row = $result->fetch_assoc()) {
+        $comments[] = $row;
+    }
+    $result->free();
+}
+
+$conn->close();
 ?>
 
 <style>
@@ -82,12 +95,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($name) && !empty($comment)) 
   .submit-button:hover {
     background-color: #0056b3;
   }
+
+  .comment-list {
+    margin-top: 20px;
+  }
+
+  .comment-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .comment-item strong {
+    display: block;
+    margin-bottom: 5px;
+  }
 </style>
 
 <main class="comment-main">
   <h2>Comment</h2>
 
-  <?php if (isset($message)): ?>
+  <?php if (!empty($message)): ?>
     <div class="user-input">
       <p><?php echo $message; ?></p>
     </div>
@@ -106,6 +134,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($name) && !empty($comment)) 
 
     <button type="submit" class="submit-button">Send</button>
   </form>
+
+  <div class="comment-list">
+    <h3>Previous Comments</h3>
+    <?php foreach ($comments as $comment): ?>
+      <div class="comment-item">
+        <strong><?php echo $comment['name']; ?></strong>
+        <p><?php echo $comment['message']; ?></p>
+      </div>
+    <?php endforeach; ?>
+  </div>
 </main>
 
 <?php include '../includes/footer.php'; ?>
