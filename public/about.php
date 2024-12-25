@@ -1,11 +1,14 @@
 <?php
-// No need to call session_start() here, as it is already included in header.php
-
-// Default user session setup for demonstration
-
-
 $title = "About";
 include '../includes/header.php';
+
+// Default role setup if cookie is not set
+if (!isset($_COOKIE['user_role'])) {
+    setcookie('user_role', 'User', time() + 3600, '/'); // Default role: User
+}
+
+// Read role from cookie
+$userRole = $_COOKIE['user_role'] ?? 'User';
 ?>
 
 <main class="about-main">
@@ -21,9 +24,7 @@ include '../includes/header.php';
     <?php
     // Process admin action
     if (isset($_POST['admin_action'])) {
-        // Check if the user role is Admin
-        if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'Admin') {
-            // Execute admin-specific tasks
+        if ($userRole === 'Admin') {
             echo "<p style='color: red;'>Admin task performed! Logs cleared, settings updated.</p>";
         } else {
             echo "<p style='color: red;'>You are not authorized to perform this action!</p>";
