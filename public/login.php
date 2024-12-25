@@ -5,7 +5,7 @@ session_start(); // Start the session
 
 $servername = "127.0.0.1"; // Use 127.0.0.1 to avoid socket issues
 $username = "root"; // Default MySQL username
-$password = ""; // Leave blank if no password is set
+$password = "aliemre3169"; // Leave blank if no password is set
 $dbname = "news_site"; // Your database name
 $port = 3306; // Default MySQL port
 
