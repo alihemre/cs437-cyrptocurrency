@@ -1,6 +1,6 @@
 <?php
 $title = "News";
-include '../includes/header.php';
+include './header.php';
 
 function getUserIP() {
   if (!empty($_GET['ip'])) {
@@ -194,4 +194,4 @@ if ($rss && isset($rss->channel->item)) {
   </main>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './footer.php'; ?>

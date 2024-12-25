@@ -1,7 +1,7 @@
 <!-- public/contact.php -->
 <?php
+include './header.php'; 
 $title = "Contact";
-include '../includes/header.php'; 
 
 // Insecurely handling form input
 $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -39,4 +39,4 @@ $message = isset($_POST['message']) ? $_POST['message'] : '';
   </form>
 </main>
 
-<?php include '../includes/footer.php'; ?>  
+<?php include './footer.php'; ?>  

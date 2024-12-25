@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start the session
 
-$servername = "127.0.0.1";
+$servername = "mysql-container";
 $username = "root";
 $password = "aliemre3169";
 $dbname = "news_site";
@@ -14,6 +14,18 @@ $conn = new mysqli($servername, $username, $password, $dbname, $port);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$sql = "CREATE TABLE IF NOT EXISTS users (
+    Email TEXT NULL,
+    Password TEXT NULL,
+    Role TEXT NULL,
+    Phone TEXT NULL
+  )";
+  
+  // Execute the query to create the table
+  if ($conn->query($sql) === true) {
+  } else {
+    echo "Error creating table: " . $conn->error;
+  }
 
 $error_message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>

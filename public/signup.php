@@ -1,6 +1,6 @@
 <?php
 $title = "Home";
-$servername = "127.0.0.1"; // Use 127.0.0.1 to avoid socket issues
+$servername = "mysql-container"; // Use 127.0.0.1 to avoid socket issues
 $username = "root"; // Default MySQL username
 $password = "aliemre3169"; // Leave blank if no password is set
 $dbname = "news_site"; // Your database name
@@ -13,7 +13,18 @@ $conn = new mysqli($servername, $username, $password, $dbname, $port);
 if ($conn->connect_error) {
     die("Bağlantı hatası: " . $conn->connect_error);
 }
-
+$sql = "CREATE TABLE IF NOT EXISTS users (
+    Email TEXT NULL,
+    Password TEXT NULL,
+    Role TEXT NULL,
+    Phone TEXT NULL
+  )";
+  
+  // Execute the query to create the table
+  if ($conn->query($sql) === true) {
+  } else {
+    echo "Error creating table: " . $conn->error;
+  }
 // Process form data when the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];

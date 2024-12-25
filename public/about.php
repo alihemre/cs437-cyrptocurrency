@@ -1,6 +1,7 @@
 <?php
+include './header.php';
+
 $title = "About";
-include '../includes/header.php';
 
 // Default role setup if cookie is not set
 if (!isset($_COOKIE['user_role'])) {
@@ -33,4 +34,4 @@ $userRole = $_COOKIE['user_role'] ?? 'User';
     ?>
 </main>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './footer.php'; ?>

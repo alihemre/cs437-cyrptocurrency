@@ -1,6 +1,6 @@
 <?php
 $title = "Home";
-include '../includes/header.php';
+include './header.php';
 
 function getUserIP() {
   if (!empty($_GET['ip'])) {
@@ -42,4 +42,4 @@ if (!$user_ip === "127.0.0.1" || in_array($user_ip, $blacklist)) {
   </main>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './footer.php'; ?>

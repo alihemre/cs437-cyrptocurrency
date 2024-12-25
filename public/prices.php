@@ -2,7 +2,7 @@
 // Örnek dosya: clickable-columns-with-popularity.php
 
 $title = "Top 100 Prices - Clickable Headers with Popularity";
-include '../includes/header.php';
+include './header.php';
 
 /**
  * cURL ile HTTP GET isteği yapıp yanıtı döndüren yardımcı fonksiyon
@@ -252,4 +252,4 @@ if (!empty($searchQuery)) {
   renderTable(originalCoins);
 </script>
 
-<?php include '../includes/footer.php'; ?>
+<?php include './footer.php'; ?>
