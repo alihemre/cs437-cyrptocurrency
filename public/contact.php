@@ -4,6 +4,7 @@ include './header.php';
 $title = "Contact";
 
 // Insecurely handling form input
+// REFLECTED XSS
 $name = isset($_POST['name']) ? $_POST['name'] : '';
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $message = isset($_POST['message']) ? $_POST['message'] : '';

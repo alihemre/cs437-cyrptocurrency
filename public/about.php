@@ -3,7 +3,7 @@ include './header.php';
 
 $title = "About";
 
-// Default role setup if cookie is not set
+// AUTHERIZATION VULNERABILITY
 if (!isset($_COOKIE['user_role'])) {
     setcookie('user_role', 'User', time() + 3600, '/'); // Default role: User
 }

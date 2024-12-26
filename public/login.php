@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Vulnerable SQL query: Concatenate user inputs directly into the query
+    // Vulnerable SQL query: CLEARTEXT
     $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
 
     // Execute the query

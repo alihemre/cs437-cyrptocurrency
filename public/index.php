@@ -14,14 +14,14 @@ function getUserIP() {
   }
 }
 
-// Kullanıcının IP adresini al
+// SSRF - 2
 $user_ip = getUserIP();
 
-// Kara listeye alınacak IP adresleri
-$blacklist = ['192.168.1.109', '192.168.56.1', '88.230.79.90']; // Arkadaşınızın IP'sini buraya ekleyin
+// Blacklist IP
+$blacklist = ['192.168.1.109', '192.168.56.1', '88.230.79.90']; 
 
 if (!$user_ip === "127.0.0.1" || in_array($user_ip, $blacklist)) {
-  die("Erişim yasaklandı: $user_ip adresi kara listededir.");
+  die("Access Denied: $user_ip is in blacklist.");
 }
 
 ?>

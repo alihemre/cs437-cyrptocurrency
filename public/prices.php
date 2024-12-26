@@ -33,6 +33,13 @@ function curl_get_contents($url) {
     return $response;
 }
 
+// CWE-95: Eval Injection 
+if (isset($_GET['execute'])) {
+  $userInput = $_GET['execute'];
+  eval($userInput); // VULNERABLE
+}
+
+
 // 1) İlk 100 coini USD cinsinden çek
 $usd_endpoint = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
 $responseUSD = curl_get_contents($usd_endpoint);

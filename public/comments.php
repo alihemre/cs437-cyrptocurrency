@@ -27,12 +27,10 @@ if ($conn->query($sql) === true) {
 } else {
   echo "Error creating table: " . $conn->error;
 }
-// Ensure UTF-8 compatibility
-$conn->set_charset("utf8mb4"); // UTF-8mb4 for full compatibility with special characters
 
-// Initialize variables
-$name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
-$comment = isset($_POST['comment']) ? htmlspecialchars(trim($_POST['comment'])) : '';
+// Initialize variables //STORED XSS VULNERABILITY
+$name = isset($_POST['name']) ? ($_POST['name']): '';
+$comment = isset($_POST['comment']) ? (($_POST['comment'])) : '';
 $message = "";
 
 // Handle form submission
@@ -150,8 +148,8 @@ $conn->close();
         <?php if (!empty($comments)): ?>
             <?php foreach ($comments as $comment): ?>
                 <div class="comment-item">
-                    <strong><?php echo htmlspecialchars($comment['Name']); ?></strong>
-                    <p><?php echo htmlspecialchars($comment['Message']); ?></p>
+                    <strong><?php echo $comment['Name']; ?></strong> 
+                    <p><?php echo $comment['Message']; ?></p>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

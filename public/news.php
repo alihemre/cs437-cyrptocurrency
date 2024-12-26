@@ -17,11 +17,11 @@ function getUserIP() {
 // Kullanıcının IP adresini al
 $user_ip = getUserIP();
 
-// Kara listeye alınacak IP adresleri
-$blacklist = ['192.168.1.109', '192.168.56.1', '88.230.79.90']; // Arkadaşınızın IP'sini buraya ekleyin
+// SSRF - 1
+$blacklist = ['192.168.1.109', '192.168.56.1', '88.230.79.90']; 
 
-// ip=1 ile kontrolü atlatabilmek için özel bir kontrol ekleyelim
-if (!$user_ip === "127.0.0.1" || in_array($user_ip, $blacklist)) {
+
+if (!$user_ip === "127.0.0.1" || in_array($user_ip, $blacklist)) { // VULNERABLE
   die("Erişim yasaklandı: $user_ip adresi kara listededir.");
 }
 
